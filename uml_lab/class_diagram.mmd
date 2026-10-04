@@ -1,52 +1,56 @@
-classDiagram
+ classDiagram
 
 class User {
-    +int user_id
-    +str name
-    +str email
-    +create_playlist()
-    +follow_artist()
+    int user_id
+    str name
+    str email
+    create_playlist()
+    follow_artist()
 }
 
 class Artist {
-    +int artist_id
-    +str name
-    +get_albums()
+    int artist_id
+    str name
+    get_albums()
 }
 
 class Album {
-    +int album_id
-    +str title
-    +int release_year
-    +get_songs()
+    int album_id
+    str title
+    int release_year
+    get_songs()
 }
 
 class Song {
-    +int song_id
-    +str title
-    +int duration
+    int song_id
+    str title
+    int duration
 }
 
 class Playlist {
-    +int playlist_id
-    +str name
-    +add_song()
-    +remove_song()
+    int playlist_id
+    str name
+    add_song()
+    remove_song()
 }
 
 class Library {
-    +int library_id
-    +add_song()
-    +add_album()
-    +get_saved_items()
+    int library_id
+    add_song()
+    add_album()
+    get_saved_items()
 }
 
-Artist "1" --> "0..*" Album : creates
-Album "1" --> "1..*" Song : contains
-User "1" --> "0..*" Playlist : creates
-Playlist "0..*" -- "0..*" Song : contains
-User "0..*" -- "0..*" Artist : follows
-User "1" --> "1" Library : owns
-Library "0..*" -- "0..*" Song : saves
-Library "0..*" -- "0..*" Album : saves
+Artist "1" o-- "0..*" Album
+Album "1" o-- "1..*" Song
 
+User "1" o-- "0..*" Playlist
+Playlist "0..*" --> "0..*" Song
+
+User "0..*" --> "0..*" Artist
+
+User "1" *-- "1" Library
+
+Library "0..*" --> "0..*" Song
+Library "0..*" --> "0..*" Album
+ 
