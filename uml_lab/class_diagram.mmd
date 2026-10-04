@@ -1,98 +1,52 @@
-Class Diagram - Music Streaming Platform
+classDiagram
 
-Classes:
+class User {
+    +int user_id
+    +str name
+    +str email
+    +create_playlist()
+    +follow_artist()
+}
 
-1. User
-Attributes:
-- user_id: int
-- name: str
-- email: str
+class Artist {
+    +int artist_id
+    +str name
+    +get_albums()
+}
 
-Methods:
-- create_playlist()
-- follow_artist()
+class Album {
+    +int album_id
+    +str title
+    +int release_year
+    +get_songs()
+}
 
+class Song {
+    +int song_id
+    +str title
+    +int duration
+}
 
-2. Artist
-Attributes:
-- artist_id: int
-- name: str
+class Playlist {
+    +int playlist_id
+    +str name
+    +add_song()
+    +remove_song()
+}
 
-Methods:
-- get_albums()
+class Library {
+    +int library_id
+    +add_song()
+    +add_album()
+    +get_saved_items()
+}
 
+Artist "1" --> "0..*" Album : creates
+Album "1" --> "1..*" Song : contains
+User "1" --> "0..*" Playlist : creates
+Playlist "0..*" -- "0..*" Song : contains
+User "0..*" -- "0..*" Artist : follows
+User "1" --> "1" Library : owns
+Library "0..*" -- "0..*" Song : saves
+Library "0..*" -- "0..*" Album : saves
 
-3. Album
-Attributes:
-- album_id: int
-- title: str
-- release_year: int
-
-Methods:
-- get_songs()
-
-
-4. Song
-Attributes:
-- song_id: int
-- title: str
-- duration: int
-
-
-5. Playlist
-Attributes:
-- playlist_id: int
-- name: str
-
-Methods:
-- add_song()
-- remove_song()
-
-
-6. Library
-Attributes:
-- library_id: int
-
-Methods:
-- add_song()
-- add_album()
-- get_saved_items()
-
-
-Relationships:
-
-- An Artist can create multiple Albums.
-- Each Album belongs to one Artist.
-
-- An Album contains multiple Songs.
-- Each Song belongs to one Album.
-
-- A User can create and manage multiple Playlists.
-- Each Playlist belongs to one User.
-
-- A Playlist can contain multiple Songs.
-- A Song can be included in multiple Playlists.
-
-- A User can follow multiple Artists.
-- An Artist can be followed by multiple Users.
-
-- A User owns one Library.
-- Each Library belongs to one User.
-
-- A Library can contain multiple Songs.
-- A Song can be saved in multiple Libraries.
-
-- A Library can contain multiple Albums.
-- An Album can be saved in multiple Libraries.
-
-
-Multiplicities:
-
-- Artist "1" -> "0..*" Album
-- Album "1" -> "1..*" Song
-- User "1" -> "0..*" Playlist
-- Playlist "0..*" <-> "0..*" Song
-- User "0..*" <-> "0..*" Artist
-- User "1" -> "1" Library
-- Library "0..*" <-> "0..*" Song
-- Library "0..*" <-> "0..*" Album
